@@ -178,6 +178,7 @@ template void PUBLIC_API Tuner::AddArgumentInput<float>(const std::vector<float>
 template void PUBLIC_API Tuner::AddArgumentInput<double>(const std::vector<double>&);
 template void PUBLIC_API Tuner::AddArgumentInput<float2>(const std::vector<float2>&);
 template void PUBLIC_API Tuner::AddArgumentInput<double2>(const std::vector<double2>&);
+template void PUBLIC_API Tuner::AddArgumentInput<char>(const std::vector<char>&);
 
 // Similar to the above function, but now marked as output buffer. Output buffers are special in the
 // sense that they will be checked in the verification process.
@@ -199,6 +200,7 @@ template void PUBLIC_API Tuner::AddArgumentOutput<float>(const std::vector<float
 template void PUBLIC_API Tuner::AddArgumentOutput<double>(const std::vector<double>&);
 template void PUBLIC_API Tuner::AddArgumentOutput<float2>(const std::vector<float2>&);
 template void PUBLIC_API Tuner::AddArgumentOutput<double2>(const std::vector<double2>&);
+template void PUBLIC_API Tuner::AddArgumentOutput<char>(const std::vector<char>&);
 
 // Sets a scalar value as an argument to the kernel. Since a vector of scalars of any type doesn't
 // exist, there is no general implemenation. Instead, each data-type has its specialised version in

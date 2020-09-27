@@ -293,6 +293,7 @@ TunerImpl::TunerResult TunerImpl::RunKernel(const std::string &source, const Ker
         case MemType::kDouble: arguments_output_copy_.push_back(CopyOutputBuffer<double>(output)); break;
         case MemType::kFloat2: arguments_output_copy_.push_back(CopyOutputBuffer<float2>(output)); break;
         case MemType::kDouble2: arguments_output_copy_.push_back(CopyOutputBuffer<double2>(output)); break;
+        case MemType::kChar: arguments_output_copy_.push_back(CopyOutputBuffer<char>(output)); break;
         default: throw std::runtime_error("Unsupported reference output data-type");
       }
     }
@@ -310,6 +311,7 @@ TunerImpl::TunerResult TunerImpl::RunKernel(const std::string &source, const Ker
     for (auto &i: arguments_double_) { tune_kernel.SetArgument(i.first, i.second); }
     for (auto &i: arguments_float2_) { tune_kernel.SetArgument(i.first, i.second); }
     for (auto &i: arguments_double2_) { tune_kernel.SetArgument(i.first, i.second); }
+    for (auto &i: arguments_char_) { tune_kernel.SetArgument(i.first, i.second); }
 
     // Sets the global and local thread-sizes
     auto global = kernel.global();
@@ -405,6 +407,7 @@ void TunerImpl::StoreReferenceOutput() {
       case MemType::kDouble: DownloadReference<double>(output_buffer); break;
       case MemType::kFloat2: DownloadReference<float2>(output_buffer); break;
       case MemType::kDouble2: DownloadReference<double2>(output_buffer); break;
+      case MemType::kChar: DownloadReference<char>(output_buffer); break;
       default: throw std::runtime_error("Unsupported reference output data-type");
     }
   }
@@ -435,6 +438,7 @@ bool TunerImpl::VerifyOutput() {
         case MemType::kDouble: status &= DownloadAndCompare<double>(output_buffer, i); break;
         case MemType::kFloat2: status &= DownloadAndCompare<float2>(output_buffer, i); break;
         case MemType::kDouble2: status &= DownloadAndCompare<double2>(output_buffer, i); break;
+        case MemType::kChar: status &= DownloadAndCompare<char>(output_buffer, i); break;
         default: throw std::runtime_error("Unsupported output data-type");
       }
       ++i;
@@ -684,6 +688,7 @@ template <> MemType TunerImpl::GetType<float>() { return MemType::kFloat; }
 template <> MemType TunerImpl::GetType<double>() { return MemType::kDouble; }
 template <> MemType TunerImpl::GetType<float2>() { return MemType::kFloat2; }
 template <> MemType TunerImpl::GetType<double2>() { return MemType::kDouble2; }
+template <> MemType TunerImpl::GetType<char>() { return MemType::kChar; }
 
 // =================================================================================================
 } // namespace cltune

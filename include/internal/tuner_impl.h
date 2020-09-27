@@ -66,7 +66,7 @@ using double2 = std::complex<double>; // cl_double2;
 #endif
 
 // Enumeration of currently supported data-types by this class
-enum class MemType { kShort, kInt, kSizeT, kHalf, kFloat, kDouble, kFloat2, kDouble2 };
+enum class MemType { kShort, kInt, kSizeT, kHalf, kFloat, kDouble, kFloat2, kDouble2, kChar };
 
 // See comment at top of file for a description of the class
 class TunerImpl {
@@ -191,6 +191,7 @@ class TunerImpl {
   std::vector<std::pair<size_t,double>> arguments_double_;
   std::vector<std::pair<size_t,float2>> arguments_float2_;
   std::vector<std::pair<size_t,double2>> arguments_double2_;
+  std::vector<std::pair<size_t,char>> arguments_char_;
 
   // Storage for the reference kernel and output
   std::unique_ptr<KernelInfo> reference_kernel_;
